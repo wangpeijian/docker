@@ -1,0 +1,104 @@
+version: '2.2'
+services:
+    redis-master-6300:
+        image: nosql/redis
+        container_name: "redis-master-6300"
+        networks: 
+            - my-net
+        ports:
+            - "6300:6379"
+        environment:
+          REDISE_ROLE: master
+          MASTER_PASSWORD: 123456
+         
+    redis-slave-6301:
+        image: nosql/redis
+        container_name: "redis-slave-6301"
+        networks: 
+            - my-net
+        ports:
+            - "6301:6379"
+        links:
+            - redis-master-6300
+        depends_on:
+            - redis-master-6300
+        environment:
+          REDISE_ROLE: slave
+          MASTER_HOST: redis-master-6300
+          MASTER_PORT: 6379
+          MASTER_PASSWORD: 123456
+
+    redis-slave-6302:
+        image: nosql/redis
+        container_name: "redis-slave-6302"
+        networks: 
+            - my-net
+        ports:
+            - "6302:6379"
+        links:
+            - redis-master-6300
+        depends_on:
+            - redis-master-6300
+        environment:
+          REDISE_ROLE: slave
+          MASTER_HOST: redis-master-6300
+          MASTER_PORT: 6379
+          MASTER_PASSWORD: 123456
+
+    redis-sentinel-26379:
+        image: nosql/redis
+        container_name: "redis-sentinel-26379"
+        networks: 
+            - my-net
+        ports:
+            - "26379:26379"
+        links:
+            - redis-master-6300
+        depends_on:
+            - redis-master-6300
+        environment:
+          REDISE_ROLE: sentinel
+          MASTER_HOST: redis-master-6300
+          MASTER_PORT: 6379
+          MASTER_PASSWORD: 123456
+          MASTER_QUORUM: 2    
+
+    redis-sentinel-26380:
+        image: nosql/redis
+        container_name: "redis-sentinel-26380"
+        networks: 
+            - my-net
+        ports:
+            - "26380:26379"
+        links:
+            - redis-master-6300
+        depends_on:
+            - redis-master-6300
+        environment:
+          REDISE_ROLE: sentinel
+          MASTER_HOST: redis-master-6300
+          MASTER_PORT: 6379
+          MASTER_PASSWORD: 123456
+          MASTER_QUORUM: 2
+
+    redis-sentinel-26381:
+        image: nosql/redis
+        container_name: "redis-sentinel-26381"
+        networks: 
+            - my-net
+        ports:
+            - "26381:26379"
+        links:
+            - redis-master-6300
+        depends_on:
+            - redis-master-6300
+        environment:
+          REDISE_ROLE: sentinel
+          MASTER_HOST: redis-master-6300
+          MASTER_PORT: 6379
+          MASTER_PASSWORD: 123456
+          MASTER_QUORUM: 2              
+
+networks:
+    my-net:
+        driver: bridge  

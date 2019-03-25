@@ -1,0 +1,26 @@
+version: '2.2'
+services:
+    eureka-server:
+        image: service/eureka
+        container_name: "eureka-server"
+        networks: 
+            - my-net
+        ports:
+            - "9001:9001"
+        # links:
+            # - export-server
+         
+    export-server:
+        image: service/export
+        container_name: "export-server"
+        networks: 
+            - my-net
+        ports:
+            - "9080:9080"
+        links:
+            - eureka-server
+        depends_on:
+            - eureka-server
+networks:
+    my-net:
+        driver: bridge  

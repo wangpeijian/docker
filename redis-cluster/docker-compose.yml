@@ -1,0 +1,101 @@
+version: '2.2'
+
+networks:
+    redis-cluster-net:
+        driver: bridge
+        ipam:
+            config:
+                - subnet: 172.99.0.0/16
+
+services:
+    redis-cluster-node-1:
+        image: nosql/redis-cluster-node
+        container_name: redis-cluster-node-1
+        networks:
+            redis-cluster-net:
+                ipv4_address: "172.99.0.2"
+        ports:
+            - 8081:6379
+        environment:
+            MASTER_PASSWORD: 123456
+        
+    redis-cluster-node-2:
+        image: nosql/redis-cluster-node
+        container_name: redis-cluster-node-2
+        networks:
+            redis-cluster-net:
+                ipv4_address: "172.99.0.3"
+        ports:
+            - 8082:6379
+        environment:
+            MASTER_PASSWORD: 123456
+        
+    redis-cluster-node-3:
+        image: nosql/redis-cluster-node
+        container_name: redis-cluster-node-3
+        networks:
+            redis-cluster-net:
+                ipv4_address: "172.99.0.4"
+        ports:
+            - 8083:6379
+        environment:
+            MASTER_PASSWORD: 123456
+        
+    redis-cluster-node-4:
+        image: nosql/redis-cluster-node
+        container_name: redis-cluster-node-4
+        networks:
+            redis-cluster-net:
+                ipv4_address: "172.99.0.5"
+        ports:
+            - 8084:6379
+        environment:
+            MASTER_PASSWORD: 123456
+        
+    redis-cluster-node-5:
+        image: nosql/redis-cluster-node
+        container_name: redis-cluster-node-5
+        networks:
+            redis-cluster-net:
+                ipv4_address: "172.99.0.6"
+        ports:
+            - 8085:6379
+        environment:
+            MASTER_PASSWORD: 123456
+        
+    redis-cluster-node-6:
+        image: nosql/redis-cluster-node
+        container_name: redis-cluster-node-6
+        networks:
+            redis-cluster-net:
+                  ipv4_address: "172.99.0.7"
+        ports:
+            - 8086:6379
+
+        environment:
+            MASTER_PASSWORD: 123456
+        
+    redis-cluster-center:
+        image: nosql/redis-center
+        container_name: redis-cluster-center
+        networks:
+            - redis-cluster-net
+        ports:
+            - 9000:6379
+        depends_on:
+            - redis-cluster-node-1
+            - redis-cluster-node-2
+            - redis-cluster-node-3
+            - redis-cluster-node-4
+            - redis-cluster-node-5
+            - redis-cluster-node-6
+        links:
+            - redis-cluster-node-1
+            - redis-cluster-node-2
+            - redis-cluster-node-3
+            - redis-cluster-node-4
+            - redis-cluster-node-5
+            - redis-cluster-node-6
+        environment:
+            MASTER_PASSWORD: 123456
+

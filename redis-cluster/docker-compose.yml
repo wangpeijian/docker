@@ -76,7 +76,7 @@ services:
             MASTER_PASSWORD: 123456
         
     redis-cluster-center:
-        image: nosql/redis-center
+        image: nosql/redis-cluster-center
         container_name: redis-cluster-center
         networks:
             - redis-cluster-net

@@ -89,13 +89,6 @@ services:
             - redis-cluster-node-4
             - redis-cluster-node-5
             - redis-cluster-node-6
-        links:
-            - redis-cluster-node-1
-            - redis-cluster-node-2
-            - redis-cluster-node-3
-            - redis-cluster-node-4
-            - redis-cluster-node-5
-            - redis-cluster-node-6
         environment:
             MASTER_PASSWORD: 123456
 

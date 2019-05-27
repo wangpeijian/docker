@@ -71,7 +71,28 @@ services:
                   ipv4_address: "172.99.0.7"
         ports:
             - 8086:6379
+        environment:
+            MASTER_PASSWORD: 123456
 
+    redis-cluster-node-7:
+        image: nosql/redis-cluster-node
+        container_name: redis-cluster-node-7
+        networks:
+            redis-cluster-net:
+                ipv4_address: "172.99.0.8"
+        ports:
+            - 8087:6379
+        environment:
+            MASTER_PASSWORD: 123456
+
+    redis-cluster-node-8:
+        image: nosql/redis-cluster-node
+        container_name: redis-cluster-node-8
+        networks:
+            redis-cluster-net:
+                ipv4_address: "172.99.0.9"
+        ports:
+            - 8088:6379
         environment:
             MASTER_PASSWORD: 123456
         
@@ -89,6 +110,8 @@ services:
             - redis-cluster-node-4
             - redis-cluster-node-5
             - redis-cluster-node-6
+            - redis-cluster-node-7
+            - redis-cluster-node-8
         environment:
             MASTER_PASSWORD: 123456
 

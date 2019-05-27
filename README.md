@@ -42,3 +42,13 @@ info replication
 查看`redis`实例配置信息
   
   
+  
+## docker部署集群
+docker部署`redis-cluster`
+`redis-cluster`文件中包含`redis`服务和`redis-cli`服务
+
+执行
+```
+docker-compose up
+```
+启动`redis-cluster`

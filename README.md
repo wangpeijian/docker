@@ -22,7 +22,7 @@ docker exec -it #containerId /bin/bash
 ```
 
 
-## docker部署redis
+## docker部署redis哨兵
 docker部署`redis` 1主2从3哨兵
 `redis`文件中包含`redis`服务默认配置和哨兵默认配置文件，自定义`redis`的dockerFile，
 容器启动的入口脚本，docker-compose文件。
@@ -43,7 +43,7 @@ info replication
   
   
   
-## docker部署集群
+## docker部署redis集群
 docker部署`redis-cluster`
 `redis-cluster`文件中包含`redis`服务和`redis-cli`服务
 
@@ -52,3 +52,16 @@ docker部署`redis-cluster`
 docker-compose up
 ```
 启动`redis-cluster`
+
+
+
+## docker部署kafka集群
+包含5个kafka`broker`,1个kafka-manager,1个zookeeper
+
+`kafka-cluster`包含docker-compose.yml文件、linux下kafkatool安装脚本
+
+执行
+```
+docker-compose up
+```
+启动`kafka-cluster`
